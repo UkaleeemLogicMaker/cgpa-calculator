@@ -2,21 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\app",
-    "\\src\\app\\home",
-    "\\src\\app\\register",
-    "\\src\\app\\semesters",
-    "\\src\\app\\settings",
-    "\\src\\app\\students",
-<<<<<<< HEAD
-    "\\src\\app\\subjects"
+    "\\src\\app"
   ],
-  "SelectedNode": "\\src\\app\\home\\home.page.ts",
-=======
-    "\\src\\app\\subjects",
-    "\\src\\environments"
-  ],
-  "SelectedNode": "\\src\\app\\register\\register.page.ts",
->>>>>>> Authintication using Firebase
+  "SelectedNode": "\\src\\app\\app.module.ts",
   "PreviewInSolutionExplorer": false
 }

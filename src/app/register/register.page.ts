@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-<<<<<<< HEAD
-=======
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
 import { AlertController } from '@ionic/angular';
->>>>>>> Authintication using Firebase
 
 @Component({
   selector: 'app-register',
@@ -14,14 +11,6 @@ import { AlertController } from '@ionic/angular';
 })
 export class RegisterPage {
 
-<<<<<<< HEAD
-    constructor(private router: Router) { }
-
-    goToregisterPage() {
-        this.router.navigateByUrl('/students')
-    }
-
-=======
     username: string = ""
     password: string = ""
     conPassword: string = ""
@@ -47,7 +36,6 @@ export class RegisterPage {
             console.dir(err)
         }
     }
->>>>>>> Authintication using Firebase
 
 
   
