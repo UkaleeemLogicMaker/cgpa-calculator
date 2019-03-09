@@ -8,8 +8,15 @@
     "\\src\\app\\semesters",
     "\\src\\app\\settings",
     "\\src\\app\\students",
+<<<<<<< HEAD
     "\\src\\app\\subjects"
   ],
   "SelectedNode": "\\src\\app\\home\\home.page.ts",
+=======
+    "\\src\\app\\subjects",
+    "\\src\\environments"
+  ],
+  "SelectedNode": "\\src\\app\\register\\register.page.ts",
+>>>>>>> Authintication using Firebase
   "PreviewInSolutionExplorer": false
 }

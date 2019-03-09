@@ -15,6 +15,10 @@
   "dependencies": {
     "@angular/common": "^7.2.2",
     "@angular/core": "^7.2.2",
+<<<<<<< HEAD
+=======
+    "@angular/fire": "^5.1.1",
+>>>>>>> Authintication using Firebase
     "@angular/forms": "^7.2.2",
     "@angular/http": "^7.2.2",
     "@angular/platform-browser": "^7.2.2",
@@ -25,6 +29,10 @@
     "@ionic-native/status-bar": "^5.0.0",
     "@ionic/angular": "^4.0.0",
     "core-js": "^2.5.4",
+<<<<<<< HEAD
+=======
+    "firebase": "^5.8.6",
+>>>>>>> Authintication using Firebase
     "rxjs": "~6.3.3",
     "zone.js": "~0.8.29"
   },

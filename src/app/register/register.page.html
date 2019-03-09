@@ -1,11 +1,21 @@
 <ion-header>
+<<<<<<< HEAD
   <ion-toolbar color="primary">
     <ion-title>register</ion-title>
   </ion-toolbar>
+=======
+    <ion-toolbar color="primary">
+        <ion-title>Register</ion-title>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="home"></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
+>>>>>>> Authintication using Firebase
 </ion-header>
 
 <ion-content padding center text-center>
     <ion-list>
+<<<<<<< HEAD
         <ion-item>
             <ion-input placeholder="Username"></ion-input>
         </ion-item>
@@ -24,4 +34,21 @@
     </ion-list>
 
     <ion-button (click)="goToregisterPage()">Submit</ion-button>
+=======
+       
+        <ion-item>
+            <ion-input placeholder="Username" [(ngModel)]="username"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-input placeholder="Password" type="password" [(ngModel)]="password"required></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-input placeholder="Repeat Password" type="password" [(ngModel)]="conPassword" required></ion-input>
+        </ion-item>
+    </ion-list>
+
+    <ion-button (click)="goToRegisterPage()">Submit</ion-button>
+>>>>>>> Authintication using Firebase
 </ion-content>
