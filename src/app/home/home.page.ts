@@ -12,7 +12,7 @@ import { AlertController } from '@ionic/angular';
 export class HomePage {
     constructor(private router: Router, public afAuth: AngularFireAuth, public alertController: AlertController) { }
 
-    username: string = ""
+    email: string = ""
     password: string = ""
 
  /*   const resetField = () => {
@@ -25,9 +25,9 @@ export class HomePage {
 
     async goToHomePage() {
 
-        const { username, password } = this
+        const { email, password } = this
         try {
-            const res = await this.afAuth.auth.signInWithEmailAndPassword(username, password)
+            const res = await this.afAuth.auth.signInWithEmailAndPassword(email, password)
             this.router.navigateByUrl('/students');
         } catch (err) {
             console.dir(err)
