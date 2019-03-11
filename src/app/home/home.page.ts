@@ -15,6 +15,13 @@ export class HomePage {
     username: string = ""
     password: string = ""
 
+ /*   const resetField = () => {
+        this.username.val('')
+        this.password.val('')
+    } 
+
+*/
+
 
     async goToHomePage() {
 
@@ -32,14 +39,26 @@ export class HomePage {
                 });
                 await alert.present();
             }
+            else if (err.code == "auth/invalid-email") {
+                const alert = await this.alertController.create({
+                    header: 'Alert',
+                    message: 'Invalid Email',
+                    buttons: ['OK']
+                });
+               await alert.present();
+            }
+            else if (err.code == "auth/wrong-password") {
+                const alert = await this.alertController.create({
+                    header: 'Alert',
+                    message: 'Wrong Password',
+                    buttons: ['OK']
+                });
+                await alert.present();
+            }
         }
-
-
-
-
     }
 
-    goToregisterPage() {
+    goToRegisterPage() {
 
         this.router.navigateByUrl('/register');
     }
