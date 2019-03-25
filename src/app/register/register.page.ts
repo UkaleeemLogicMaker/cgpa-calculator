@@ -1,66 +1,64 @@
 import { Component, OnInit } from '@angular/core';
+import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { auth } from 'firebase/app';
-import { AlertController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.page.html',
-  styleUrls: ['./register.page.scss'],
+    selector: 'app-register',
+    templateUrl: './register.page.html',
+    styleUrls: ['./register.page.scss'],
 })
-export class RegisterPage {
+export class RegisterPage implements OnInit {
 
-    email: string = ""
-    password: string = ""
-    conPassword: string = ""
+    validations_form: FormGroup;
+    errorMessage: string = '';
+    successMessage: string = '';
 
-    constructor(private router: Router, public afAuth: AngularFireAuth, public alertController: AlertController) { }
+    validation_messages = {
+        'email': [
+            { type: 'required', message: 'Email is required.' },
+            { type: 'pattern', message: 'Enter a valid email.' }
+        ],
+        'password': [
+            { type: 'required', message: 'Password is required.' },
+            { type: 'minlength', message: 'Password must be at least 5 characters long.' }
+        ]
+    };
 
-    async goToRegisterPage() {
-        const { email, password, conPassword } = this
+    constructor(
+        private authService: AuthService,
+        private formBuilder: FormBuilder,
+        private router: Router
+    ) { }
 
-        if (password !== conPassword) {
-            const alert = await this.alertController.create({
-                header: 'Alert',
-                message: "Password don't match",
-                buttons: ['OK']
-            });
-            await alert.present();
-        }
-
-        else {
-                try {
-                const res = await this.afAuth.auth.createUserWithEmailAndPassword(email, password)
-                this.router.navigateByUrl('/students')
-            } catch (err) {
-                console.dir(err)
-                if (err.code == "auth/weak-password"){
-                    const alert = await this.alertController.create({
-                        header: 'Alert',
-                        message: 'The password must be 6 characters long or more',
-                        buttons: ['OK']
-                    });
-                    await alert.present();
-                }
-                else if (err.code == "auth/invalid-email") {
-                    const alert = await this.alertController.create({
-                        header: 'Alert',
-                        message: 'Invalid Email',
-                        buttons: ['OK']
-                    });
-                await alert.present();
-                }
-                else if (err.code == "auth/email-already-in-use") {
-                    const alert = await this.alertController.create({
-                        header: 'Alert',
-                        message: 'The email address is already in use by another account',
-                        buttons: ['OK']
-                    });
-                await alert.present();
-                }
-            }
-        }
+    ngOnInit() {
+        this.validations_form = this.formBuilder.group({
+            email: new FormControl('', Validators.compose([
+                Validators.required,
+                Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
+            ])),
+            password: new FormControl('', Validators.compose([
+                Validators.minLength(5),
+                Validators.required
+            ])),
+        });
     }
-} 
 
+    tryRegister(value) {
+        this.authService.doRegister(value)
+            .then(res => {
+                console.log(res);
+                this.errorMessage = "";
+                this.successMessage = "Your account has been created. Please log in.";
+            }, err => {
+                console.log(err);
+                this.errorMessage = err.message;
+                this.successMessage = "";
+            })
+    }
+
+    goLoginPage() {
+        this.router.navigate(["/home"]);
+    }
+
+}

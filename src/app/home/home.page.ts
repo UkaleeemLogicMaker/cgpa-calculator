@@ -1,65 +1,60 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { auth } from 'firebase/app';
-import { AlertController } from '@ionic/angular';
-
+import { Observable, Subscription } from "rxjs";
 @Component({
     selector: 'app-home',
     templateUrl: 'home.page.html',
     styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-    constructor(private router: Router, public afAuth: AngularFireAuth, public alertController: AlertController) { }
+    validations_form: FormGroup;
+    errorMessage: string = '';
 
-    email: string = ""
-    password: string = ""
+    validation_messages = {
+        'email': [
+            { type: 'required', message: 'Email is required.' },
+            { type: 'pattern', message: 'Please enter a valid email.' }
+        ],
+        'password': [
+            { type: 'required', message: 'Password is required.' },
+            { type: 'minlength', message: 'Password must be at least 5 characters long.' }
+        ]
+    };
 
- /*   const resetField = () => {
-        this.username.val('')
-        this.password.val('')
-    } 
+    constructor(
+        private authService: AuthService,
+        private formBuilder: FormBuilder,
+        private router: Router
+    ) { }
 
-*/
-
-
-    async goToHomePage() {
-
-        const { email, password } = this
-        try {
-            const res = await this.afAuth.auth.signInWithEmailAndPassword(email, password)
-            this.router.navigateByUrl('/students');
-        } catch (err) {
-            console.dir(err)
-            if (err.code == "auth/user-not-found") {
-                const alert = await this.alertController.create({
-                    header: 'Alert',
-                    message: 'User not found',
-                    buttons: ['OK']
-                });
-                await alert.present();
-            }
-            else if (err.code == "auth/invalid-email") {
-                const alert = await this.alertController.create({
-                    header: 'Alert',
-                    message: 'Invalid Email',
-                    buttons: ['OK']
-                });
-               await alert.present();
-            }
-            else if (err.code == "auth/wrong-password") {
-                const alert = await this.alertController.create({
-                    header: 'Alert',
-                    message: 'Wrong Password',
-                    buttons: ['OK']
-                });
-                await alert.present();
-            }
-        }
+    ngOnInit() {
+        this.validations_form = this.formBuilder.group({
+            email: new FormControl('', Validators.compose([
+                Validators.required,
+                Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
+            ])),
+            password: new FormControl('', Validators.compose([
+                Validators.minLength(5),
+                Validators.required
+            ])),
+        });
     }
 
-    goToRegisterPage() {
 
-        this.router.navigateByUrl('/register');
+
+    tryLogin(value) {
+        this.authService.doLogin(value)
+            .then(res => {
+                this.router.navigate(["/semesters"]);
+            }, err => {
+                this.errorMessage = err.message;
+                console.log(err)
+            })
+    }
+
+    goRegisterPage() {
+        this.router.navigate(["/register"]);
     }
 }
