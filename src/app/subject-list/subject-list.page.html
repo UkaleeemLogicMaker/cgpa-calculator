@@ -1,0 +1,120 @@
+<ion-header>
+
+  <ion-toolbar color="primary">
+      <ion-title>
+          Subject List
+      </ion-title>
+
+      <ion-buttons slot="start">
+          <ion-button>
+              <ion-icon slot="icon-only" name="list"></ion-icon>
+          </ion-button>
+      </ion-buttons>
+
+      <ion-buttons slot="end">
+          <ion-button>
+              <ion-icon slot="icon-only" name="trash"></ion-icon>
+          </ion-button>
+
+          <ion-button>
+              <ion-icon name="add-circle-outline"></ion-icon>
+          </ion-button>
+          <ion-button (click)="logout()">
+              <ion-icon name="exit"></ion-icon>
+          </ion-button>
+      </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content padding center text-center>
+
+  <ion-item>
+      <ion-label>Subjects</ion-label>
+    
+  </ion-item>
+
+  <ion-content *ngIf="subjects" class="list-mini-content" padding>
+    <div *ngIf="subjects.length > 0" class="list-mini">
+      <ion-list>
+        <ion-item>
+          <ion-grid>
+              <ion-row>
+                <ion-col>
+                  <div>
+                    <ion-label>Subject Name</ion-label>
+                  </div>
+                </ion-col>
+                <ion-col>
+                  <div>
+                    <ion-label>Subject Code</ion-label>
+                  </div>
+                </ion-col>
+                <ion-col>
+                  <div>
+                    <ion-label>CreditHour </ion-label>
+                  </div>
+                </ion-col>
+                <ion-col>
+                  <div>
+                    <ion-label>Grade</ion-label>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+        </ion-item>
+        <ion-item *ngFor="let item of subjects">   
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <div>
+                  <ion-label>{{item.payload.doc.data().subName}}</ion-label>
+                </div>
+              </ion-col>
+              <ion-col>
+                <div>
+                  <ion-label>{{item.payload.doc.data().subCode}}</ion-label>
+                </div>
+              </ion-col>
+              <ion-col>
+                <div>
+                  <ion-label>{{item.payload.doc.data().creditHour}}</ion-label>
+                </div>
+              </ion-col>
+              <ion-col>
+                <div>
+                  <ion-label>{{item.payload.doc.data().grade}}</ion-label>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+          
+          
+        </ion-item>
+      </ion-list>
+
+      
+      
+    
+      
+      
+    </div>
+    
+    <div *ngIf="subjects.length == 0" class="empty-list">
+      Please add subject
+    </div>
+  </ion-content>
+
+
+
+  <ion-button color="primary" fill="clear"expand="block" (click)="goToSubPage()">Back to Subjects </ion-button>
+
+
+
+
+
+
+
+</ion-content>
