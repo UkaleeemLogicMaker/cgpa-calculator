@@ -32,30 +32,19 @@
         <ion-item>
             <ion-input placeholder="Sub Name" type="text" formControlName="subName"></ion-input>
             <ion-input placeholder="Sub Code" type="text" formControlName="subCode"></ion-input>
-            <ion-input placeholder="Credit Hour" type="text" formControlName="creditHour"></ion-input>
+            <ion-input placeholder="Credit Hour" type="number" formControlName="creditHour"></ion-input>
+            <ion-input placeholder="Grade" type="number" formControlName="grade"></ion-input>
         </ion-item>
         <ion-button class="submit-btn" expand="block" type="submit">Submit</ion-button>
 
 
 
     </form>
+    <ion-button color="primary" expand="block" (click)="goToSubListPage()">SubjectList</ion-button>
     <ion-button color="danger" expand="block" (click)="goToSemPage()">Back</ion-button>
 
 
-    <ion-content *ngIf="subjects" class="list-mini-content" padding>
-        <div *ngIf="subjects.length > 0" class="list-mini">
-          <ion-list>
-            <ion-item *ngFor="let item of subjects" [routerLink]="['/details', item.payload.doc.id]">   
-              
-              <ion-label>{{item.payload.doc.data().subName}}</ion-label>
-              <ion-button fill="clear" slot="end">Details</ion-button>
-            </ion-item>
-          </ion-list>
-        </div>
-        <div *ngIf="subjects.length == 0" class="empty-list">
-          Please add subject
-        </div>
-      </ion-content>
+   
 
 
 

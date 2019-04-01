@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { SubjectsPage } from './subjects.page';
+import { SubjectListPage } from '../subject-list/subject-list.page';
 
 const routes: Routes = [
     {
