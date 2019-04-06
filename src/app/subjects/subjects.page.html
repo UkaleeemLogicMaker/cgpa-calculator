@@ -18,6 +18,9 @@
             <ion-button>
                 <ion-icon name="add-circle-outline"></ion-icon>
             </ion-button>
+            <ion-button (click)="logout()">
+                <ion-icon name="exit"></ion-icon>
+            </ion-button>
 
         </ion-buttons>
     </ion-toolbar>
@@ -26,8 +29,8 @@
 
 <ion-content padding>
     <h5>Student() Semester()</h5>
-    <h5>Subjects :  3</h5>
-    <h5> Credit Hours : 9</h5>
+    <h5>Subjects :  {{subjects.length}}</h5>
+    <h5> Credit Hours : {{this.creditHourTot}}</h5>
     <form [formGroup]="subject_form" (ngSubmit)="onSubmit(subject_form.value)">
         <ion-item>
             <ion-input placeholder="Sub Name" type="text" formControlName="subName"></ion-input>
@@ -40,9 +43,82 @@
 
 
     </form>
-    <ion-button color="primary" expand="block" (click)="goToSubListPage()">SubjectList</ion-button>
+    
     <ion-button color="danger" expand="block" (click)="goToSemPage()">Back</ion-button>
 
+
+    <ion-content *ngIf="subjects" class="list-mini-content" padding>
+        <div *ngIf="subjects.length > 0" class="list-mini">
+          <ion-list>
+            <ion-item>
+              <ion-grid>
+                  <ion-row>
+                    <ion-col>
+                      <div>
+                        <ion-label>Subject Name</ion-label>
+                      </div>
+                    </ion-col>
+                    <ion-col>
+                      <div>
+                        <ion-label>Subject Code</ion-label>
+                      </div>
+                    </ion-col>
+                    <ion-col>
+                      <div>
+                        <ion-label>CreditHour </ion-label>
+                      </div>
+                    </ion-col>
+                    <ion-col>
+                      <div>
+                        <ion-label>Grade</ion-label>
+                      </div>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+            </ion-item>
+            <ion-item *ngFor="let item of subjects">   
+              <ion-grid>
+                <ion-row>
+                  <ion-col>
+                    <div>
+                      <ion-label>{{item.payload.doc.data().subName}}</ion-label>
+                    </div>
+                  </ion-col>
+                  <ion-col>
+                    <div>
+                      <ion-label>{{item.payload.doc.data().subCode}}</ion-label>
+                    </div>
+                  </ion-col>
+                  <ion-col>
+                    <div>
+                      <ion-label>{{item.payload.doc.data().creditHour}}</ion-label>
+                    </div>
+                  </ion-col>
+                  <ion-col>
+                    <div>
+                      <ion-label>{{item.payload.doc.data().grade}}</ion-label>
+                    </div>
+                  </ion-col>
+                </ion-row>
+                </ion-grid>
+              
+              </ion-item>
+          </ion-list>
+    
+          
+          
+        
+          
+          
+        </div>
+        <div *ngIf="subjects.length != 0" >
+            Semester GPA is 
+        </div>
+
+        <div *ngIf="subjects.length == 0" class="empty-list">
+          Please add subject
+        </div>
+      </ion-content>
 
    
 

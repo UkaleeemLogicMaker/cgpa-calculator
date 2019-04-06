@@ -18,6 +18,7 @@ export class SubjectsPage implements OnInit {
     subjects: Array<any>;
     gradeArray: number[]=[];
     creditHourArray: number[]=[];
+    creditHourTot: number=0;
 
 
     constructor(
@@ -31,12 +32,31 @@ export class SubjectsPage implements OnInit {
        // public creditHourArray: number[]
 
     ) { }
-    
     ngOnInit() {
-       
-        this.resetFields();
-    }
+        if (this.route && this.route.data) {
+            this.getData();
+          }
+          this.resetFields();
+     
+        }
 
+        async getData(){
+            /*    const loading = await this.loadingCtrl.create({
+                  message: 'Please wait...'
+                });
+                this.presentLoading(loading);
+            */
+                this.route.data.subscribe(routeData => {
+                  routeData['data'].subscribe(data => {
+                  //  loading.dismiss();
+                    this.subjects = data;
+                  })
+                })
+              }
+            
+              async presentLoading(loading) {
+                return await loading.present();
+              }
 
     resetFields() {
         this.subject_form = this.formBuilder.group({
@@ -58,18 +78,30 @@ export class SubjectsPage implements OnInit {
         }
 
         
+        this.creditHourTot= this.creditHourTot + value.creditHour;
         
+
         
         this.firebaseService.createSubjects(data)
         this.firebaseService.createGPA(this.gradeArray,this.creditHourArray)
         
     }
-
+    
     goToSemPage() {
         this.router.navigate(["/semesters"]);
     }
 
     goToSubListPage(){
       this.router.navigate(["/subject-list"]);
+    }
+
+
+    logout() {
+        this.authService.doLogout()
+            .then(res => {
+                this.router.navigate(["/home"]);
+            }, err => {
+                console.log(err);
+            })
     }
 }
