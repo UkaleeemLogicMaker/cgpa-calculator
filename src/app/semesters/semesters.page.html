@@ -35,6 +35,30 @@
         <ion-label slot="end">CGPA = ()</ion-label>
     </ion-item>
 
+    <div *ngIf="gpa.length > 0" class="list-mini">
+        
+          <ion-item *ngFor="let item of gpa">   
+            <ion-grid>
+              <ion-row>
+                <ion-col>
+                  <div>
+                    <ion-label>{{item.payload.doc.data().gpa}}</ion-label>
+                  </div>
+                </ion-col>
+                
+              </ion-row>
+              </ion-grid>
+            
+            </ion-item>
+        
+  
+        
+        
+      
+        
+        
+      </div>
+
 
 
     <ion-button color="primary" fill="clear"expand="block" (click)="goToSubPage()">Semester 1 - GPA : () </ion-button>

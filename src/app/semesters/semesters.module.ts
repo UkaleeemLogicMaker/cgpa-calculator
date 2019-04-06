@@ -6,12 +6,18 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { SemestersPage } from './semesters.page';
+import { SemestersResolver } from './semesters.resolver';
 
 const routes: Routes = [
     {
         path: '',
-        component: SemestersPage
+        component: SemestersPage,
+        
+        resolve: {
+            data: SemestersResolver
+          }
     }
+    
 ];
 
 @NgModule({
@@ -21,6 +27,9 @@ const routes: Routes = [
         IonicModule,
         RouterModule.forChild(routes)
     ],
-    declarations: [SemestersPage]
+    declarations: [SemestersPage],
+    providers: [
+        SemestersResolver
+      ]
 })
 export class SemestersPageModule { }

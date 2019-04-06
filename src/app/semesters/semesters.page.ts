@@ -8,7 +8,7 @@ import { AuthService } from '../services/auth.service';
     styleUrls: ['./semesters.page.scss'],
 })
 export class SemestersPage implements OnInit {
-    things: Array<any>;
+    gpa: Array<any>;
     constructor(
         public loadingCtrl: LoadingController,
         private router: Router,
@@ -17,8 +17,30 @@ export class SemestersPage implements OnInit {
     ) { }
 
     ngOnInit() {
+        if (this.route && this.route.data) {
+            this.getData();
+          }
+          
+     
+        }
 
-    }
+        async getData(){
+            /*    const loading = await this.loadingCtrl.create({
+                  message: 'Please wait...'
+                });
+                this.presentLoading(loading);
+            */
+                this.route.data.subscribe(routeData => {
+                  routeData['data'].subscribe(data => {
+                  //  loading.dismiss();
+                    this.gpa = data;
+                  })
+                })
+              }
+            
+              async presentLoading(loading) {
+                return await loading.present();
+              }
 
 
 

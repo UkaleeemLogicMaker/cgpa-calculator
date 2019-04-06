@@ -6,11 +6,15 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { SubjectsPage } from './subjects.page';
 import { SubjectListPage } from '../subject-list/subject-list.page';
+import { SubjectsResolver } from './subjects.resolver';
 
 const routes: Routes = [
     {
         path: '',
-        component: SubjectsPage
+        component: SubjectsPage,
+        resolve: {
+            data: SubjectsResolver
+          }
     }
 ];
 
@@ -22,7 +26,10 @@ const routes: Routes = [
         IonicModule,
         RouterModule.forChild(routes)
     ],
-    providers: [Location],
-    declarations: [SubjectsPage]
+    
+    declarations: [SubjectsPage],
+    providers: [
+        SubjectsResolver
+      ]
 })
 export class SubjectsPageModule { }
